@@ -1,0 +1,94 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Go Bookstore",
+    "dateExported": "2023-08-08T00:54:06.379Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "3b4693ad-717b-490b-a640-0d4215ca588c",
+            "colId": "f4f5a334-6cc6-401a-9400-9d1d22e08621",
+            "containerId": "",
+            "name": "/books",
+            "url": "/books",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-08-07T14:42:47.062Z",
+            "modified": "2023-08-07T14:43:08.884Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7fe9fe95-87e6-4b6f-8a65-84cdf155af8b",
+            "colId": "f4f5a334-6cc6-401a-9400-9d1d22e08621",
+            "containerId": "",
+            "name": "/books/{id}",
+            "url": "/books/3",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-08-07T15:10:44.153Z",
+            "modified": "2023-08-07T23:08:27.705Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "31c01f7e-dd10-4539-80a6-9818df475c77",
+            "colId": "f4f5a334-6cc6-401a-9400-9d1d22e08621",
+            "containerId": "",
+            "name": "/books",
+            "url": "/books",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-08-07T15:05:19.965Z",
+            "modified": "2023-08-07T15:06:27.968Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Doom Guy\",\n  \"author\": \"John Romero\",\n  \"publication\": \"Abrams Press\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "46c94307-d753-44dc-9b1c-0397c8bd8c9f",
+            "colId": "f4f5a334-6cc6-401a-9400-9d1d22e08621",
+            "containerId": "",
+            "name": "/books/{id}",
+            "url": "/books/3",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-08-07T15:10:55.706Z",
+            "modified": "2023-08-07T23:08:36.519Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": " {\n  \"updatedAt\": \"2023-08-07T11:18:23.6707802-04:00\",\n  \"name\": \"Doom Gal\",\n  \"author\": \"Brenda Romero\",\n  \"publication\": \"Abrams Press\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "be6594b6-ed70-48b6-bdfb-06af12e5911f",
+            "colId": "f4f5a334-6cc6-401a-9400-9d1d22e08621",
+            "containerId": "",
+            "name": "/books/{id}",
+            "url": "/books/3",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-08-07T15:10:47.545Z",
+            "modified": "2023-08-07T23:09:11.837Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "http://localhost:4000"
+        }
+    }
+}

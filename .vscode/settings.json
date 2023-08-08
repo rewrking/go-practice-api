@@ -1,0 +1,9 @@
+{
+	"[go]": {
+		"editor.formatOnSave": true
+	},
+	"files.exclude": {
+		// "build": true,
+		// "build.sh": true
+	}
+}
