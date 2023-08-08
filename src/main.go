@@ -3,20 +3,16 @@ package main
 import (
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/rewrking/go-practice-api/pkg/config"
 	"github.com/rewrking/go-practice-api/pkg/models"
 	"github.com/rewrking/go-practice-api/pkg/routes"
 	"gorm.io/driver/sqlite"
 )
 
 func main() {
-	loc, err := time.LoadLocation("UTC")
-	if err != nil {
-		panic("Failed to set time zone")
-	}
-	time.Local = loc // -> this is setting the global timezone
+	config.SetTimeZoneUTC()
 
 	router := mux.NewRouter()
 	models.Initialize(sqlite.Open("data.sqlite"))

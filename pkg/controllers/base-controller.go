@@ -35,25 +35,25 @@ func (ctrlr ModelCtrlr[T, PT]) CreateOne(w http.ResponseWriter, r *http.Request)
 	parseBody(r, &newItem)
 
 	item := models.CreateOne[T](&newItem)
-	writeDefaultHeader(w, item)
+	writeDefaultHeader(w, r, item)
 }
 
 func (ctrlr ModelCtrlr[T, PT]) ReadAll(w http.ResponseWriter, r *http.Request) {
 	items := models.ReadAll[T]()
-	writeDefaultHeader(w, items)
+	writeDefaultHeader(w, r, items)
 }
 
 func (ctrlr ModelCtrlr[T, PT]) ReadOne(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	ID, err := strconv.ParseInt(vars["id"], 0, 0)
 	if err != nil {
-		writeBadRequest(w)
+		writeBadRequest(w, r)
 	} else {
 		item := models.ReadOne[T](ID)
 		if item == nil {
-			writeNotFound(w)
+			writeNotFound(w, r)
 		} else {
-			writeDefaultHeader(w, item)
+			writeDefaultHeader(w, r, item)
 		}
 	}
 }
@@ -62,18 +62,18 @@ func (ctrlr ModelCtrlr[T, PT]) UpdateOne(w http.ResponseWriter, r *http.Request)
 	vars := mux.Vars(r)
 	ID, err := strconv.ParseInt(vars["id"], 0, 0)
 	if err != nil {
-		writeBadRequest(w)
+		writeBadRequest(w, r)
 	} else {
 		var updates T
 		parseBody(r, &updates)
 
 		item := models.ReadOne[T](ID)
 		if item == nil {
-			writeNotFound(w)
+			writeNotFound(w, r)
 		} else {
 			typedItem := (PT)(item)
 			typedItem.Update(&updates)
-			writeDefaultHeader(w, typedItem)
+			writeDefaultHeader(w, r, typedItem)
 		}
 	}
 }
@@ -82,13 +82,13 @@ func (ctrlr ModelCtrlr[T, PT]) DeleteOne(w http.ResponseWriter, r *http.Request)
 	vars := mux.Vars(r)
 	ID, err := strconv.ParseInt(vars["id"], 0, 0)
 	if err != nil {
-		writeBadRequest(w)
+		writeBadRequest(w, r)
 	} else {
 		result := models.DeleteOne[T](ID)
 		if result == nil {
-			writeNotFound(w)
+			writeNotFound(w, r)
 		} else {
-			writeDefaultHeader(w, result)
+			writeDefaultHeader(w, r, result)
 		}
 	}
 }
