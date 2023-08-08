@@ -91,7 +91,7 @@ func setDefaultHeader(w http.ResponseWriter) {
 func writeNotFound(w http.ResponseWriter, r *http.Request) {
 	result, code := getErrorStruct(http.StatusNotFound, r)
 	res, _ := json.Marshal(result)
-	log.Error(fmt.Sprint("[", code, "] ", r.URL), "err", result.Error.Message)
+	log.Error(fmt.Sprint(code, " ", r.Method, " ", r.URL), "err", result.Error.Message)
 	setDefaultHeader(w)
 	w.WriteHeader(code)
 	w.Write(res)
@@ -100,7 +100,7 @@ func writeNotFound(w http.ResponseWriter, r *http.Request) {
 func writeBadRequest(w http.ResponseWriter, r *http.Request) {
 	result, code := getErrorStruct(http.StatusBadRequest, r)
 	res, _ := json.Marshal(result)
-	log.Error(fmt.Sprint("[", code, "] ", r.URL), "err", result.Error.Message)
+	log.Error(fmt.Sprint(code, " ", r.Method, " ", r.URL), "err", result.Error.Message)
 	setDefaultHeader(w)
 	w.WriteHeader(code)
 	w.Write(res)
@@ -115,7 +115,7 @@ func writeDefaultHeader[T any](w http.ResponseWriter, r *http.Request, data T) {
 		result = getDataStruct[T](data, r)
 	}
 	res, _ := json.Marshal(result)
-	log.Info(fmt.Sprint("[", code, "] [", r.Method, "] ", r.URL))
+	log.Info(fmt.Sprint(code, " ", r.Method, " ", r.URL))
 	setDefaultHeader(w)
 	w.WriteHeader(code)
 	w.Write(res)
