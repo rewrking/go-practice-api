@@ -1,14 +1,13 @@
 package config
 
 import (
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 var db *gorm.DB
 
-func Connect(dbFile string) {
-	database, err := gorm.Open(sqlite.Open(dbFile), &gorm.Config{})
+func Connect(dialector gorm.Dialector) {
+	database, err := gorm.Open(dialector, &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

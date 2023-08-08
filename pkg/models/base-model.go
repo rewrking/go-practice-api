@@ -20,20 +20,20 @@ type DeletedModel struct {
 	DeletedAt time.Time `json:"deletedAt"`
 }
 
-func Create[T any](data *T) *T {
+func CreateOne[T any](data *T) *T {
 	db := config.GetDB()
 	db.Create(data)
 	return data
 }
 
-func GetAll[T any]() []T {
+func ReadAll[T any]() []T {
 	db := config.GetDB()
 	var data []T
 	db.Find(&data)
 	return data
 }
 
-func GetById[T any](ID int64) *T {
+func ReadOne[T any](ID int64) *T {
 	var data T
 	db := config.GetDB()
 	count := int64(0)
@@ -44,8 +44,8 @@ func GetById[T any](ID int64) *T {
 	return &data
 }
 
-func DeleteById[T any](ID int64) *DeletedModel {
-	data := GetById[T](ID)
+func DeleteOne[T any](ID int64) *DeletedModel {
+	data := ReadOne[T](ID)
 	if data == nil {
 		return nil
 	}

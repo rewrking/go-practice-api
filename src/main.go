@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/rewrking/go-practice-api/pkg/models"
 	"github.com/rewrking/go-practice-api/pkg/routes"
+	"gorm.io/driver/sqlite"
 )
 
 func main() {
@@ -18,11 +19,14 @@ func main() {
 	time.Local = loc // -> this is setting the global timezone
 
 	router := mux.NewRouter()
-	models.Initialize("data.sqlite")
+	models.Initialize(sqlite.Open("data.sqlite"))
 
-	routes.RegisterBookStoreRoutes(router)
 	http.Handle("/", router)
 
-	log.Printf("Server started on port 4000")
-	log.Fatal(http.ListenAndServe("localhost:4000", router))
+	if routes.RegisterAll(router) {
+		log.Printf("Server started on port 4000")
+		log.Fatal(http.ListenAndServe("localhost:4000", router))
+	} else {
+		panic("Failed to register routes")
+	}
 }
