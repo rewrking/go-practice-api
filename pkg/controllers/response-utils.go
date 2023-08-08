@@ -2,8 +2,11 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"reflect"
+
+	"github.com/charmbracelet/log"
 )
 
 const API_VERSION uint32 = 1
@@ -81,10 +84,15 @@ func getErrorStruct(code uint32, r *http.Request) (JsonError, int) {
 	}, int(code)
 }
 
+func setDefaultHeader(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json")
+}
+
 func writeNotFound(w http.ResponseWriter, r *http.Request) {
 	result, code := getErrorStruct(http.StatusNotFound, r)
 	res, _ := json.Marshal(result)
-	w.Header().Set("Content-Type", "application/json")
+	log.Error(fmt.Sprint("[", code, "] ", r.URL), "err", result.Error.Message)
+	setDefaultHeader(w)
 	w.WriteHeader(code)
 	w.Write(res)
 }
@@ -92,20 +100,23 @@ func writeNotFound(w http.ResponseWriter, r *http.Request) {
 func writeBadRequest(w http.ResponseWriter, r *http.Request) {
 	result, code := getErrorStruct(http.StatusBadRequest, r)
 	res, _ := json.Marshal(result)
-	w.Header().Set("Content-Type", "application/json")
+	log.Error(fmt.Sprint("[", code, "] ", r.URL), "err", result.Error.Message)
+	setDefaultHeader(w)
 	w.WriteHeader(code)
 	w.Write(res)
 }
 
 func writeDefaultHeader[T any](w http.ResponseWriter, r *http.Request, data T) {
 	var result any
+	code := http.StatusOK
 	if reflect.TypeOf(data).Kind() == reflect.Slice {
 		result = getDataItemsStruct[T](data, r)
 	} else {
 		result = getDataStruct[T](data, r)
 	}
 	res, _ := json.Marshal(result)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
+	log.Info(fmt.Sprint("[", code, "] [", r.Method, "] ", r.URL))
+	setDefaultHeader(w)
+	w.WriteHeader(code)
 	w.Write(res)
 }
