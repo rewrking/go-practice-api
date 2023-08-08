@@ -6,7 +6,7 @@ import (
 	"github.com/rewrking/go-practice-api/pkg/models"
 )
 
-func RegisterBookStoreRoutes(router *mux.Router) bool {
+func RegisterBooks(router *mux.Router) bool {
 	ctrlr := controllers.Make[models.Book]()
 	return MakeCrudRoutes(router, "/books", &ctrlr)
 }
