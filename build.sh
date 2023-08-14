@@ -15,9 +15,9 @@ if [[ $PLATFORM == "windows" ]]; then
 	TARGET_EXT=.exe
 fi
 
-TARGET=go-practice-api$TARGET_EXT
+TARGET=main$TARGET_EXT
 
-go build -o ./build/$TARGET ./src/main.go
+go build -o ./build/ ./src/main.go
 
 if [[ $? == 0 ]]; then
 	./build/$TARGET
